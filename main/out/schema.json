@@ -1,0 +1,2187 @@
+{
+  "tables": {
+    "m_company": {
+      "name": "m_company",
+      "comment": "会社マスタ",
+      "columns": {
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "company_code": {
+          "name": "company_code",
+          "type": "varchar(20)",
+          "default": null,
+          "check": null,
+          "comment": "会社コード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "会社名",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "legal_name": {
+          "name": "legal_name",
+          "type": "varchar(200)",
+          "default": null,
+          "check": null,
+          "comment": "登記上名称",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "parent_company_id": {
+          "name": "parent_company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "親会社ID（NULL=持株）",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "country_code": {
+          "name": "country_code",
+          "type": "char(2)",
+          "default": "JP",
+          "check": null,
+          "comment": "国コード (ISO-3166)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "postal_code": {
+          "name": "postal_code",
+          "type": "varchar(12)",
+          "default": null,
+          "check": null,
+          "comment": "郵便番号",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "address_line1": {
+          "name": "address_line1",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "住所1",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "address_line2": {
+          "name": "address_line2",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "住所2",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "parent_company_id": {
+          "name": "parent_company_id",
+          "unique": false,
+          "columns": [
+            "parent_company_id"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "company_id"
+          ],
+          "type": "btree"
+        },
+        "company_code": {
+          "name": "company_code",
+          "unique": true,
+          "columns": [
+            "company_code",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_company_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_company_ibfk_1",
+          "columnName": "parent_company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "company_id"
+        }
+      }
+    },
+    "m_employee": {
+      "name": "m_employee",
+      "comment": "従業員マスタ",
+      "columns": {
+        "emp_id": {
+          "name": "emp_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "従業員ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "所属組織ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "position_id": {
+          "name": "position_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "役職ID",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "emp_code": {
+          "name": "emp_code",
+          "type": "varchar(20)",
+          "default": null,
+          "check": null,
+          "comment": "社員番号",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "azure_ad_object_id": {
+          "name": "azure_ad_object_id",
+          "type": "char(36)",
+          "default": null,
+          "check": null,
+          "comment": "Azure AD Object ID",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "姓",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "名",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "last_name_kana": {
+          "name": "last_name_kana",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "姓（カナ）",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "first_name_kana": {
+          "name": "first_name_kana",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "名（カナ）",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "enum('REGULAR','CONTRACT','PARTTIME','TEMP','DISPATCH')",
+          "default": "REGULAR",
+          "check": null,
+          "comment": "雇用区分",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "enum('ACTIVE','LEAVE','INACTIVE','RETIRED')",
+          "default": "ACTIVE",
+          "check": null,
+          "comment": "在籍ステータス",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(150)",
+          "default": null,
+          "check": null,
+          "comment": "社用メールアドレス",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(20)",
+          "default": null,
+          "check": null,
+          "comment": "連絡先電話番号",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "org_id": {
+          "name": "org_id",
+          "unique": false,
+          "columns": [
+            "org_id"
+          ],
+          "type": "btree"
+        },
+        "position_id": {
+          "name": "position_id",
+          "unique": false,
+          "columns": [
+            "position_id"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "emp_id"
+          ],
+          "type": "btree"
+        },
+        "company_id": {
+          "name": "company_id",
+          "unique": true,
+          "columns": [
+            "company_id",
+            "emp_code",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_employee_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_ibfk_1",
+          "columnName": "company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_employee_ibfk_2": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_ibfk_2",
+          "columnName": "org_id",
+          "targetTableName": "m_organization",
+          "targetColumnName": "org_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_employee_ibfk_3": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_ibfk_3",
+          "columnName": "position_id",
+          "targetTableName": "m_position",
+          "targetColumnName": "position_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "emp_id"
+        }
+      }
+    },
+    "m_employee_account": {
+      "name": "m_employee_account",
+      "comment": "従業員振込口座マスタ",
+      "columns": {
+        "account_id": {
+          "name": "account_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "口座ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "従業員ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "bank_code": {
+          "name": "bank_code",
+          "type": "char(4)",
+          "default": null,
+          "check": null,
+          "comment": "銀行コード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "branch_code": {
+          "name": "branch_code",
+          "type": "char(3)",
+          "default": null,
+          "check": null,
+          "comment": "支店コード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "account_type": {
+          "name": "account_type",
+          "type": "enum('FUTSU','TOUZA','SAVINGS','OTHER')",
+          "default": "FUTSU",
+          "check": null,
+          "comment": "口座種別",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "account_no": {
+          "name": "account_no",
+          "type": "char(7)",
+          "default": null,
+          "check": null,
+          "comment": "口座番号 (7桁)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "account_name": {
+          "name": "account_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "口座名義 (カナ推奨)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "currency_code": {
+          "name": "currency_code",
+          "type": "char(3)",
+          "default": "JPY",
+          "check": null,
+          "comment": "通貨 (ISO 4217)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "purpose": {
+          "name": "purpose",
+          "type": "enum('EXPENSE','PAYROLL','BONUS','OTHER')",
+          "default": "EXPENSE",
+          "check": null,
+          "comment": "用途区分",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "priority": {
+          "name": "priority",
+          "type": "tinyint unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "同一用途内での優先順位 (1=最優先)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "bank_code": {
+          "name": "bank_code",
+          "unique": false,
+          "columns": [
+            "bank_code",
+            "branch_code"
+          ],
+          "type": "btree"
+        },
+        "emp_id_2": {
+          "name": "emp_id_2",
+          "unique": false,
+          "columns": [
+            "emp_id",
+            "purpose",
+            "priority"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "account_id"
+          ],
+          "type": "btree"
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "unique": true,
+          "columns": [
+            "emp_id",
+            "purpose",
+            "priority",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_employee_account_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_account_ibfk_1",
+          "columnName": "emp_id",
+          "targetTableName": "m_employee",
+          "targetColumnName": "emp_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "account_id"
+        }
+      }
+    },
+    "m_employee_delegate": {
+      "name": "m_employee_delegate",
+      "comment": "代理設定マスタ",
+      "columns": {
+        "delegate_seq": {
+          "name": "delegate_seq",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "代理シーケンスPK",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "本人",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "delegate_id": {
+          "name": "delegate_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "代理人",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "enum('ALL','LIMITED')",
+          "default": "ALL",
+          "check": null,
+          "comment": "ALL=全権委任, LIMITED=範囲指定",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "delegate_id": {
+          "name": "delegate_id",
+          "unique": false,
+          "columns": [
+            "delegate_id"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "delegate_seq"
+          ],
+          "type": "btree"
+        },
+        "emp_id": {
+          "name": "emp_id",
+          "unique": true,
+          "columns": [
+            "emp_id",
+            "delegate_id",
+            "valid_from"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_employee_delegate_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_delegate_ibfk_1",
+          "columnName": "emp_id",
+          "targetTableName": "m_employee",
+          "targetColumnName": "emp_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_employee_delegate_ibfk_2": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_delegate_ibfk_2",
+          "columnName": "delegate_id",
+          "targetTableName": "m_employee",
+          "targetColumnName": "emp_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "delegate_seq"
+        }
+      }
+    },
+    "m_employee_delegate_scope": {
+      "name": "m_employee_delegate_scope",
+      "comment": "代理範囲マスタ",
+      "columns": {
+        "scope_id": {
+          "name": "scope_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "代理範囲ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "delegate_seq": {
+          "name": "delegate_seq",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "代理設定ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "wf_key": {
+          "name": "wf_key",
+          "type": "varchar(64)",
+          "default": null,
+          "check": null,
+          "comment": "対象WFキー(NULL=全)",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "wf_step_no": {
+          "name": "wf_step_no",
+          "type": "smallint",
+          "default": null,
+          "check": null,
+          "comment": "ステップ番号(NULL=全)",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "perm_code": {
+          "name": "perm_code",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "追加パーミッション(NULL=無指定)",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "scope_id"
+          ],
+          "type": "btree"
+        },
+        "uq_scope_unique": {
+          "name": "uq_scope_unique",
+          "unique": true,
+          "columns": [
+            "delegate_seq",
+            "wf_key",
+            "wf_step_no",
+            "perm_code"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "fk_scope_parent": {
+          "type": "FOREIGN KEY",
+          "name": "fk_scope_parent",
+          "columnName": "delegate_seq",
+          "targetTableName": "m_employee_delegate",
+          "targetColumnName": "delegate_seq",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "scope_id"
+        }
+      }
+    },
+    "m_employee_preference": {
+      "name": "m_employee_preference",
+      "comment": "従業員個人設定マスタ",
+      "columns": {
+        "emp_id": {
+          "name": "emp_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "従業員ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "locale": {
+          "name": "locale",
+          "type": "char(5)",
+          "default": "ja-JP",
+          "check": null,
+          "comment": "言語・ロケール",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "varchar(50)",
+          "default": "Asia/Tokyo",
+          "check": null,
+          "comment": "タイムゾーン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "theme": {
+          "name": "theme",
+          "type": "enum('LIGHT','DARK')",
+          "default": "LIGHT",
+          "check": null,
+          "comment": "UI テーマ",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "date_format": {
+          "name": "date_format",
+          "type": "enum('YYYY/MM/DD','DD/MM/YYYY','MM/DD/YYYY')",
+          "default": "YYYY/MM/DD",
+          "check": null,
+          "comment": "日付フォーマット",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "notify_type": {
+          "name": "notify_type",
+          "type": "enum('EMAIL','SLACK','NONE')",
+          "default": "EMAIL",
+          "check": null,
+          "comment": "通知方法",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "default_cost_center": {
+          "name": "default_cost_center",
+          "type": "varchar(20)",
+          "default": null,
+          "check": null,
+          "comment": "デフォルト原価センタ",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "default_cc_email": {
+          "name": "default_cc_email",
+          "type": "varchar(150)",
+          "default": null,
+          "check": null,
+          "comment": "申請時の CC メール",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "locale": {
+          "name": "locale",
+          "unique": false,
+          "columns": [
+            "locale"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "emp_id"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_employee_preference_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_employee_preference_ibfk_1",
+          "columnName": "emp_id",
+          "targetTableName": "m_employee",
+          "targetColumnName": "emp_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "emp_id"
+        }
+      }
+    },
+    "m_organization": {
+      "name": "m_organization",
+      "comment": "組織マスタ",
+      "columns": {
+        "org_id": {
+          "name": "org_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "組織ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "parent_org_id": {
+          "name": "parent_org_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "上位組織ID",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "org_code": {
+          "name": "org_code",
+          "type": "varchar(20)",
+          "default": null,
+          "check": null,
+          "comment": "組織コード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "org_name": {
+          "name": "org_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "組織名称",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "company_id": {
+          "name": "company_id",
+          "unique": false,
+          "columns": [
+            "company_id"
+          ],
+          "type": "btree"
+        },
+        "parent_org_id": {
+          "name": "parent_org_id",
+          "unique": false,
+          "columns": [
+            "parent_org_id"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "org_id"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_organization_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_organization_ibfk_1",
+          "columnName": "company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_organization_ibfk_2": {
+          "type": "FOREIGN KEY",
+          "name": "m_organization_ibfk_2",
+          "columnName": "parent_org_id",
+          "targetTableName": "m_organization",
+          "targetColumnName": "org_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "org_id"
+        }
+      }
+    },
+    "m_permission": {
+      "name": "m_permission",
+      "comment": "パーミッションマスタ",
+      "columns": {
+        "perm_id": {
+          "name": "perm_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "パーミッションID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID (NULL = 全社共通)",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "perm_code": {
+          "name": "perm_code",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "権限コード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "perm_name": {
+          "name": "perm_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "権限名称",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "perm_desc": {
+          "name": "perm_desc",
+          "type": "varchar(255)",
+          "default": null,
+          "check": null,
+          "comment": "説明",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "perm_group": {
+          "name": "perm_group",
+          "type": "varchar(50)",
+          "default": null,
+          "check": null,
+          "comment": "機能グループ",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "perm_group": {
+          "name": "perm_group",
+          "unique": false,
+          "columns": [
+            "perm_group"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "perm_id"
+          ],
+          "type": "btree"
+        },
+        "company_id": {
+          "name": "company_id",
+          "unique": true,
+          "columns": [
+            "company_id",
+            "perm_code",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_permission_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_permission_ibfk_1",
+          "columnName": "company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "perm_id"
+        }
+      }
+    },
+    "m_position": {
+      "name": "m_position",
+      "comment": "役職マスタ",
+      "columns": {
+        "position_id": {
+          "name": "position_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "役職ID",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "parent_position_id": {
+          "name": "parent_position_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "上位役職ID",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "position_name": {
+          "name": "position_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "役職名称",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "grade_level": {
+          "name": "grade_level",
+          "type": "smallint",
+          "default": null,
+          "check": null,
+          "comment": "等級・序列（数値が小さいほど上位）",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "is_managerial": {
+          "name": "is_managerial",
+          "type": "tinyint(1)",
+          "default": 0,
+          "check": null,
+          "comment": "管理職フラグ",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "company_id_2": {
+          "name": "company_id_2",
+          "unique": false,
+          "columns": [
+            "company_id",
+            "grade_level"
+          ],
+          "type": "btree"
+        },
+        "fk_position_parent": {
+          "name": "fk_position_parent",
+          "unique": false,
+          "columns": [
+            "parent_position_id"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "position_id"
+          ],
+          "type": "btree"
+        },
+        "company_id": {
+          "name": "company_id",
+          "unique": true,
+          "columns": [
+            "company_id",
+            "position_name",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "fk_position_parent": {
+          "type": "FOREIGN KEY",
+          "name": "fk_position_parent",
+          "columnName": "parent_position_id",
+          "targetTableName": "m_position",
+          "targetColumnName": "position_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_position_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_position_ibfk_1",
+          "columnName": "company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "position_id"
+        }
+      }
+    },
+    "m_role": {
+      "name": "m_role",
+      "comment": "ロールマスタ",
+      "columns": {
+        "role_id": {
+          "name": "role_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "ロールID（PK）",
+          "primary": true,
+          "unique": false,
+          "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "会社ID (NULL = 全社共通)",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "role_code": {
+          "name": "role_code",
+          "type": "varchar(30)",
+          "default": null,
+          "check": null,
+          "comment": "ロールコード",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "role_name": {
+          "name": "role_name",
+          "type": "varchar(100)",
+          "default": null,
+          "check": null,
+          "comment": "ロール名称",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "role_desc": {
+          "name": "role_desc",
+          "type": "varchar(255)",
+          "default": null,
+          "check": null,
+          "comment": "ロール説明",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "is_system_role": {
+          "name": "is_system_role",
+          "type": "tinyint(1)",
+          "default": 0,
+          "check": null,
+          "comment": "システムロール (1=システム)",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "有効開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "有効終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "int unsigned",
+          "default": 1,
+          "check": null,
+          "comment": "バージョン",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "is_system_role": {
+          "name": "is_system_role",
+          "unique": false,
+          "columns": [
+            "is_system_role"
+          ],
+          "type": "btree"
+        },
+        "PRIMARY": {
+          "name": "PRIMARY",
+          "unique": false,
+          "columns": [
+            "role_id"
+          ],
+          "type": "btree"
+        },
+        "company_id": {
+          "name": "company_id",
+          "unique": true,
+          "columns": [
+            "company_id",
+            "role_code",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_role_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_role_ibfk_1",
+          "columnName": "company_id",
+          "targetTableName": "m_company",
+          "targetColumnName": "company_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "PRIMARY": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY",
+          "columnName": "role_id"
+        }
+      }
+    },
+    "m_role_permission": {
+      "name": "m_role_permission",
+      "comment": "ロールパーミッションマスタ",
+      "columns": {
+        "role_id": {
+          "name": "role_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "ロールID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "perm_id": {
+          "name": "perm_id",
+          "type": "bigint unsigned",
+          "default": null,
+          "check": null,
+          "comment": "パーミッションID",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_from": {
+          "name": "valid_from",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "付与開始日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "valid_to": {
+          "name": "valid_to",
+          "type": "datetime",
+          "default": "9999-12-31 23:59:59",
+          "check": null,
+          "comment": "付与終了日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "default": null,
+          "check": null,
+          "comment": "論理削除日時",
+          "primary": false,
+          "unique": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "登録日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "default": "CURRENT_TIMESTAMP",
+          "check": null,
+          "comment": "更新日時",
+          "primary": false,
+          "unique": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "perm_id": {
+          "name": "perm_id",
+          "unique": false,
+          "columns": [
+            "perm_id"
+          ],
+          "type": "btree"
+        },
+        "role_id_2": {
+          "name": "role_id_2",
+          "unique": false,
+          "columns": [
+            "role_id",
+            "valid_from",
+            "valid_to"
+          ],
+          "type": "btree"
+        },
+        "role_id": {
+          "name": "role_id",
+          "unique": true,
+          "columns": [
+            "role_id",
+            "perm_id",
+            "deleted_at"
+          ],
+          "type": "btree"
+        }
+      },
+      "constraints": {
+        "m_role_permission_ibfk_1": {
+          "type": "FOREIGN KEY",
+          "name": "m_role_permission_ibfk_1",
+          "columnName": "role_id",
+          "targetTableName": "m_role",
+          "targetColumnName": "role_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "m_role_permission_ibfk_2": {
+          "type": "FOREIGN KEY",
+          "name": "m_role_permission_ibfk_2",
+          "columnName": "perm_id",
+          "targetTableName": "m_permission",
+          "targetColumnName": "perm_id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "m_company_company_id_to_m_company_parent_company_id": {
+      "name": "m_company_company_id_to_m_company_parent_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_company",
+      "foreignColumnName": "parent_company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_company_company_id_to_m_employee_company_id": {
+      "name": "m_company_company_id_to_m_employee_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_employee",
+      "foreignColumnName": "company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_organization_org_id_to_m_employee_org_id": {
+      "name": "m_organization_org_id_to_m_employee_org_id",
+      "primaryTableName": "m_organization",
+      "primaryColumnName": "org_id",
+      "foreignTableName": "m_employee",
+      "foreignColumnName": "org_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_position_position_id_to_m_employee_position_id": {
+      "name": "m_position_position_id_to_m_employee_position_id",
+      "primaryTableName": "m_position",
+      "primaryColumnName": "position_id",
+      "foreignTableName": "m_employee",
+      "foreignColumnName": "position_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_employee_emp_id_to_m_employee_account_emp_id": {
+      "name": "m_employee_emp_id_to_m_employee_account_emp_id",
+      "primaryTableName": "m_employee",
+      "primaryColumnName": "emp_id",
+      "foreignTableName": "m_employee_account",
+      "foreignColumnName": "emp_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_employee_emp_id_to_m_employee_delegate_emp_id": {
+      "name": "m_employee_emp_id_to_m_employee_delegate_emp_id",
+      "primaryTableName": "m_employee",
+      "primaryColumnName": "emp_id",
+      "foreignTableName": "m_employee_delegate",
+      "foreignColumnName": "emp_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_employee_emp_id_to_m_employee_delegate_delegate_id": {
+      "name": "m_employee_emp_id_to_m_employee_delegate_delegate_id",
+      "primaryTableName": "m_employee",
+      "primaryColumnName": "emp_id",
+      "foreignTableName": "m_employee_delegate",
+      "foreignColumnName": "delegate_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_employee_delegate_delegate_seq_to_m_employee_delegate_scope_delegate_seq": {
+      "name": "m_employee_delegate_delegate_seq_to_m_employee_delegate_scope_delegate_seq",
+      "primaryTableName": "m_employee_delegate",
+      "primaryColumnName": "delegate_seq",
+      "foreignTableName": "m_employee_delegate_scope",
+      "foreignColumnName": "delegate_seq",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_employee_emp_id_to_m_employee_preference_emp_id": {
+      "name": "m_employee_emp_id_to_m_employee_preference_emp_id",
+      "primaryTableName": "m_employee",
+      "primaryColumnName": "emp_id",
+      "foreignTableName": "m_employee_preference",
+      "foreignColumnName": "emp_id",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_company_company_id_to_m_organization_company_id": {
+      "name": "m_company_company_id_to_m_organization_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_organization",
+      "foreignColumnName": "company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_organization_org_id_to_m_organization_parent_org_id": {
+      "name": "m_organization_org_id_to_m_organization_parent_org_id",
+      "primaryTableName": "m_organization",
+      "primaryColumnName": "org_id",
+      "foreignTableName": "m_organization",
+      "foreignColumnName": "parent_org_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_company_company_id_to_m_permission_company_id": {
+      "name": "m_company_company_id_to_m_permission_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_permission",
+      "foreignColumnName": "company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_position_position_id_to_m_position_parent_position_id": {
+      "name": "m_position_position_id_to_m_position_parent_position_id",
+      "primaryTableName": "m_position",
+      "primaryColumnName": "position_id",
+      "foreignTableName": "m_position",
+      "foreignColumnName": "parent_position_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_company_company_id_to_m_position_company_id": {
+      "name": "m_company_company_id_to_m_position_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_position",
+      "foreignColumnName": "company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_company_company_id_to_m_role_company_id": {
+      "name": "m_company_company_id_to_m_role_company_id",
+      "primaryTableName": "m_company",
+      "primaryColumnName": "company_id",
+      "foreignTableName": "m_role",
+      "foreignColumnName": "company_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_role_role_id_to_m_role_permission_role_id": {
+      "name": "m_role_role_id_to_m_role_permission_role_id",
+      "primaryTableName": "m_role",
+      "primaryColumnName": "role_id",
+      "foreignTableName": "m_role_permission",
+      "foreignColumnName": "role_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "m_permission_perm_id_to_m_role_permission_perm_id": {
+      "name": "m_permission_perm_id_to_m_role_permission_perm_id",
+      "primaryTableName": "m_permission",
+      "primaryColumnName": "perm_id",
+      "foreignTableName": "m_role_permission",
+      "foreignColumnName": "perm_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    }
+  },
+  "tableGroups": {}
+}
