@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドキュメント インデックス</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1976D2;
+      --primary-light: #64B5F6;
+      --primary-dark: #0D47A1;
+      --accent: #FFD54F;
+      --text: #212121;
+      --text-light: #757575;
+      --background: #F9F9F9;
+      --card: #FFFFFF;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 10px 15px rgba(182, 0, 129, 0.2);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 2rem 0;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+    }
+
+    header .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: white;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .search-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1rem;
+      transition: var(--transition);
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .search-container input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-container input:focus {
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .branches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .branch-item {
+      background-color: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .branch-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .branch-item a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 1.5rem;
+      border-top: 5px solid #E0E0E0;
+      height: 100%;
+    }
+
+    .branch-item a::after {
+      content: "\f061";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      color: var(--primary);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .branch-item:hover a::after {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    .branch-name {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .branch-name i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    .branch-type {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      background-color: #F5F5F5;
+      border-radius: 50px;
+      padding: 0.25rem 0.75rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-weight: 300;
+    }
+
+    .main a {
+      border-color: var(--primary);
+    }
+
+    .develop a {
+      border-color: #4CAF50;
+    }
+
+    .release a {
+      border-color: #FF9800;
+    }
+
+    .feature a {
+      border-color: #9C27B0;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--text-light);
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid #EEEEEE;
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .branches-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ブランチ別ドキュメント</h1>
+      <p class="subtitle">技術資料・開発ガイド</p>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="ブランチを検索..." />
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <ul class="branches-grid" id="branchList">
+            <li class="branch-item main" data-name="main (最新)">
+      <a href="./main/">
+        <div class="branch-name"><i class="fas fa-star"></i> main (最新)</div>
+        <span class="branch-type">メインブランチ</span>
+      </a>
+    </li>
+    </ul>
+    
+    <div class="footer">
+      <p>最終更新: 2025-05-06 06:49:59 UTC | <a href="https://github.com/semba-yui/sample-workflow-rdb/actions" target="_blank"><i class="fas fa-sync-alt"></i> ビルドステータス</a></p>
+    </div>
+  </div>
+  
+  <script>
+    // 検索機能
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+      const searchValue = this.value.toLowerCase();
+      const branches = document.querySelectorAll('#branchList li');
+      
+      branches.forEach(branch => {
+        const name = branch.getAttribute('data-name').toLowerCase();
+        if (name.includes(searchValue)) {
+          branch.style.display = '';
+        } else {
+          branch.style.display = 'none';
+        }
+      });
+    });
+    
+    // アニメーション効果
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.branch-item');
+      items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, 100 + (index * 50));
+      });
+    });
+  </script>
+</body>
+</html>
