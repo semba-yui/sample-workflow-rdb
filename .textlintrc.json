@@ -1,0 +1,10 @@
+{
+  "plugins": {},
+  "filters": {
+    "allowlist": true,
+    "comments": true
+  },
+  "rules": {
+    "preset-ja-technical-writing": true
+  }
+}

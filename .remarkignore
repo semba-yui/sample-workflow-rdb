@@ -1,0 +1,7 @@
+node_modules
+CHANGELOG.md
+.venv
+.github
+pull_request_template.md
+excel
+docs/schema
