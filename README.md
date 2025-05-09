@@ -2,6 +2,7 @@
 
 [![Build and Deploy MkDocs per Branch](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/build-and-deploy.yml)
 [![pages-build-deployment](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/pages/pages-build-deployment)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/semba-yui/sample-workflow-rdb)
 
 データベースを中心としたワークフローのサンプルプロジェクトです。
 
