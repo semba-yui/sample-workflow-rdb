@@ -106,6 +106,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: build-and-test
     steps:
 
