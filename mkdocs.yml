@@ -34,16 +34,7 @@ plugins:
   - search:
       lang: 'ja'
   - tags
-  - git-revision-date-localized:
-      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
-      enable_creation_date: true
-      locale: ja
-      timezone: Asia/Tokyo
-  - git-authors:
-      enabled: !ENV [ENABLED_GIT_AUTHORS, True]
-      show_email_address: false
   - awesome-nav
-
   - mermaid2
   - glightbox
   - table-reader

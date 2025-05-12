@@ -304,3 +304,9 @@ cython_debug/
 
 # MacOS
 .DS_Store
+
+# docs
+docs/schema/
+
+# excel
+excel/

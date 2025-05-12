@@ -1,12 +1,15 @@
 {
   "name": "sample-workflow-rdb",
   "version": "1.0.0",
-  "description": "",
+  "description": "サンプルプロフェクト DDL / DML / Document 管理リポジトリ",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "db:serve": "docker compose -f docker/compose.yaml up -d",
+    "db:down": "docker compose -f docker/compose.yaml down -v",
+    "db:rebuild": "docker compose -f docker/compose.yaml down -v && docker compose -f docker/compose.yaml up -d",
+    "db:schema": "docker compose -f docker/compose.yaml up tbls",
     "docs:build": "poetry run mkdocs build --clean --strict",
     "docs:format": "remark . --output",
     "docs:lint": "npx textlint ./**/*.md && npx remark . --quiet --frail",

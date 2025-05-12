@@ -1,6 +1,8 @@
 name: Build and Deploy MkDocs per Branch
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
@@ -19,8 +21,8 @@ concurrency:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    env:
-      MISE_ENV: ci 
+    permissions:
+      contents: write
     steps:
 
       - name: Checkout repository
@@ -55,6 +57,34 @@ jobs:
       - name: Text Lint
         run: npm run docs:lint
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Start Docker services
+        run: npm run db:serve
+
+      - name: Wait for services to be ready
+        run: |
+          echo "データベースとマイグレーションの完了を待機中..."
+          max_attempts=30
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            if [ "$(docker inspect -f '{{.State.Status}}' tbls_container 2>/dev/null)" = "exited" ] && \
+               [ "$(docker inspect -f '{{.State.ExitCode}}' tbls_container 2>/dev/null)" = "0" ]; then
+              echo "tbls document generation completed successfully"
+              break
+            fi
+            echo "Waiting for tbls to complete... (Attempt $attempt/$max_attempts)"
+            sleep 10
+            attempt=$((attempt + 1))
+          done
+          
+          if [ $attempt -gt $max_attempts ]; then
+            echo "tbls did not complete in time"
+            docker logs tbls_container
+            exit 1
+          fi
+
       - name: Build ER
         run: npm run er:build
 
@@ -66,6 +96,13 @@ jobs:
         with:
           name: mkdocs-site-${{ steps.set-safe-name.outputs.safe_branch_name }}
           path: site
+
+      - name: Upload Excel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: excel-${{ steps.set-safe-name.outputs.safe_branch_name }}
+          path: excel/schema.xlsx
+          retention-days: 5 
 
   deploy:
     runs-on: ubuntu-latest

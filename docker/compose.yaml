@@ -39,6 +39,7 @@ services:
       - FLYWAY_LOCATIONS=filesystem:sql/migration,filesystem:sql/seed/local
 
   tbls:
+    container_name: tbls_container
     build:
       context: .
       dockerfile: Dockerfile.tbls  
