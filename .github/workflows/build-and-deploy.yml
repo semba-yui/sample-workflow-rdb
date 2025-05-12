@@ -106,9 +106,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test 
-    permissions:
-      contents: write
+    needs: build-and-test
     steps:
 
       - name: Set Safe Branch Name
