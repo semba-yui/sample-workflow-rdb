@@ -25,6 +25,7 @@
   - [6. ドキュメント生成](#6-ドキュメント生成)
   - [7. ドキュメント確認](#7-ドキュメント確認)
   - [8. データベースの停止](#8-データベースの停止)
+- [CI で生成される Excel ファイル](#ci-で生成される-excel-ファイル)
 - [参考](#参考)
 - [ライセンス](#ライセンス)
 
@@ -178,6 +179,12 @@ npm run docs:serve
 ```bash
 npm run db:down
 ```
+
+## CI で生成される Excel ファイル
+
+GitHub Actions の `Build and Deploy MkDocs per Branch` ワークフローでは、
+テーブル定義書 (`excel/schema.xlsx`) を自動生成し、Artifacts にアップロードしています。
+ワークフロー実行結果ページの **Artifacts** から `excel-<branch_name>` という名前でダウンロードできます。
 
 ## 参考
 
