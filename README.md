@@ -92,7 +92,7 @@ cd workspace
 
 ```bash
 git clone https://github.com/semba-yui/sample-mysql-rdb.git
-cd densin-rdb
+cd sample-mysql-rdb
 ```
 
 ### 3. mise を用いて開発環境をセットアップする
