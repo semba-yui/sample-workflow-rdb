@@ -1,8 +1,0 @@
-[tools]
-node = "23.11.0"
-poetry = "latest"
-python = "3.13.3"
-
-[env]
-ENABLED_GIT_REVISION_DATE = "false"
-ENABLED_GIT_AUTHORS = "false"
