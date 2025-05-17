@@ -3,7 +3,7 @@ site_name: テーブル定義書
 copyright: "Copyright © Yui Semba"
 
 # リポジトリ指定
-repo_url: https://github.com/semba-yui/sample-workflow-rdb.git
+repo_url: https://github.com/semba-yui/sample-mysql-rdb.git
 repo_name: GitHub
 
 # テーマ設定(theme)
@@ -34,16 +34,7 @@ plugins:
   - search:
       lang: 'ja'
   - tags
-  - git-revision-date-localized:
-      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
-      enable_creation_date: true
-      locale: ja
-      timezone: Asia/Tokyo
-  - git-authors:
-      enabled: !ENV [ENABLED_GIT_AUTHORS, True]
-      show_email_address: false
   - awesome-nav
-
   - mermaid2
   - glightbox
   - table-reader

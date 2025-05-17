@@ -8,8 +8,7 @@
 
 ## ER 図 (Liam ERD ver)
 
-// TODO: WIP
-ER図は[こちら]()
+ER図は[こちら](https://semba-yui.github.io/sample-mysql-rdb/main/out/index.html)
 
 ## CRUD 図
 
