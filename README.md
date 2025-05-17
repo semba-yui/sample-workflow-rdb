@@ -1,8 +1,8 @@
-# sample-workflow-rdb
+# sample-mysql-rdb
 
-[![Build and Deploy MkDocs per Branch](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/build-and-deploy.yml)
-[![pages-build-deployment](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/semba-yui/sample-workflow-rdb/actions/workflows/pages/pages-build-deployment)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/semba-yui/sample-workflow-rdb)
+[![Build and Deploy MkDocs per Branch](https://github.com/semba-yui/sample-mysql-rdb/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/semba-yui/sample-mysql-rdb/actions/workflows/build-and-deploy.yml)
+[![pages-build-deployment](https://github.com/semba-yui/sample-mysql-rdb/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/semba-yui/sample-mysql-rdb/actions/workflows/pages/pages-build-deployment)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/semba-yui/sample-mysql-rdb)
 
 ## 目次
 
@@ -91,7 +91,7 @@ cd workspace
 ### 2. リポジトリをクローンする
 
 ```bash
-git clone https://github.com/semba-yui/sample-workflow-rdb.git
+git clone https://github.com/semba-yui/sample-mysql-rdb.git
 cd densin-rdb
 ```
 

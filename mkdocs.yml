@@ -3,7 +3,7 @@ site_name: テーブル定義書
 copyright: "Copyright © Yui Semba"
 
 # リポジトリ指定
-repo_url: https://github.com/semba-yui/sample-workflow-rdb.git
+repo_url: https://github.com/semba-yui/sample-mysql-rdb.git
 repo_name: GitHub
 
 # テーマ設定(theme)

@@ -8,7 +8,7 @@
 
 ## ER 図 (Liam ERD ver)
 
-ER図は[こちら](https://semba-yui.github.io/sample-workflow-rdb/main/out/index.html)
+ER図は[こちら](https://semba-yui.github.io/sample-mysql-rdb/main/out/index.html)
 
 ## CRUD 図
 

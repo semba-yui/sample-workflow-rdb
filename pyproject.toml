@@ -1,5 +1,5 @@
 [project]
-name = "sample-workflow-rdb"
+name = "sample-mysql-rdb"
 version = "0.1.0"
 description = "サンプルプロジェクト テーブル定義書"
 authors = [
