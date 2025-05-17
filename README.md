@@ -26,6 +26,7 @@
   - [7. ドキュメント確認](#7-ドキュメント確認)
   - [8. データベースの停止](#8-データベースの停止)
 - [参考](#参考)
+- [ライセンス](#ライセンス)
 
 ## 概要
 
@@ -184,3 +185,8 @@ npm run db:down
 - [tbls](https://github.com/k1LoW/tbls)
 - [The future of tbls and "Documentation as Code" / phpconfuk 2023](https://speakerdeck.com/k1low/phpconfuk-2023)
 - [Liam ERD](https://liambx.com/)
+
+## ライセンス
+
+本プロジェクトは [MIT License](LICENSE) の下で公開されています。
+
