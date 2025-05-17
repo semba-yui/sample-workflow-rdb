@@ -36,7 +36,7 @@
 - SQLフォーマッターによるコード整形
 - Dockerを用いた開発環境
 - mkdocs を用いた markdown → HTML 変換（GitHub Pages 用）
-- huskey を用いたコミット時の自動フォーマット
+- husky を用いたコミット時の自動フォーマット
 
 ## 開発者向けガイドライン
 
